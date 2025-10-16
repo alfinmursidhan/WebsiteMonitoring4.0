@@ -5,7 +5,7 @@ interface CardProps {
   className?: string;
   padding?: 'none' | 'sm' | 'md' | 'lg';
   shadow?: boolean;
-  gradient?: boolean;
+  gradient?: boolean | 'weather' | 'monitoring' | 'sunset' | 'ocean' | 'warm' | 'pink-orange' | 'orange-warm' | 'orange-fire' | 'orange';
   onClick?: () => void;
 }
 
@@ -24,10 +24,17 @@ const Card: React.FC<CardProps> = ({
     lg: 'p-7',
   };
 
+  const getGradientClass = () => {
+    if (!gradient) return '';
+    if (gradient === true) return 'gradient-pink-orange';
+    return `gradient-${gradient}`;
+  };
+
   const classes = [
-    'bg-white rounded-xl transition-all duration-300 ease-in-out',
+    gradient ? '' : 'bg-white',
+    'rounded-xl transition-all duration-300 ease-in-out',
     shadow ? 'shadow-sm hover:shadow-md border border-gray-100' : '',
-    gradient ? 'gradient-pink-orange' : '',
+    getGradientClass(),
     paddingClasses[padding],
     onClick ? 'cursor-pointer hover:scale-[1.02] active:scale-[0.98] hover:shadow-lg' : '',
     className,

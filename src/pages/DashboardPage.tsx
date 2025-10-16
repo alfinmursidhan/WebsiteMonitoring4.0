@@ -49,7 +49,7 @@ const DashboardPage: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-6 sm:mb-8">
             {/* Weather Card */}
             <div className="lg:col-span-2">
-              <Card className="h-full" gradient padding="md">
+              <Card className="h-full" gradient="orange-warm" padding="md">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
                   <div className="text-white">
                     <h3 className="text-lg sm:text-xl opacity-90 font-semibold mb-1">Pantai Air Negeri Simpang</h3>
@@ -89,14 +89,14 @@ const DashboardPage: React.FC = () => {
 
             {/* Soil Health Card */}
             <div>
-              <Card className="bg-gradient-to-br from-green-100 to-green-200 h-full border-green-300" padding="md">
+              <Card className="bg-gradient-to-br from-emerald-50 via-green-50 to-emerald-100 h-full border-emerald-200 shadow-lg" padding="md">
                 <div className="text-center">
                   <div className="text-5xl sm:text-6xl mb-4">🌱</div>
-                  <h3 className="font-semibold text-green-800 mb-4 text-lg">Kesehatan Tanah</h3>
-                  <div className="text-3xl sm:text-4xl font-bold text-green-600 mb-2">{weatherData.soilHealth}</div>
-                  <div className="text-green-700 text-base sm:text-lg font-medium">mg/kg</div>
-                  <div className="mt-4 px-3 py-1 bg-green-200 rounded-full inline-block">
-                    <span className="text-sm text-green-700 font-medium">Status: Sangat Baik</span>
+                  <h3 className="font-semibold text-emerald-800 mb-4 text-lg">Kesehatan Tanah</h3>
+                  <div className="text-3xl sm:text-4xl font-bold text-emerald-600 mb-2">{weatherData.soilHealth}</div>
+                  <div className="text-emerald-700 text-base sm:text-lg font-medium">mg/kg</div>
+                  <div className="mt-4 px-3 py-1 bg-emerald-200 rounded-full inline-block shadow-sm">
+                    <span className="text-sm text-emerald-700 font-medium">Status: Sangat Baik</span>
                   </div>
                 </div>
               </Card>
@@ -105,34 +105,34 @@ const DashboardPage: React.FC = () => {
 
           {/* Nutrient Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
-            <Card className="bg-gradient-to-br from-red-50 to-red-100 border-red-200 hover:shadow-lg transition-all duration-300" padding="md">
+            <Card className="bg-gradient-to-br from-rose-50 via-red-50 to-pink-50 border-rose-200 hover:shadow-lg transition-all duration-300" padding="md">
               <div className="text-center">
-                <div className="w-12 h-12 bg-red-200 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <span className="text-red-600 font-bold text-sm">N</span>
+                <div className="w-12 h-12 bg-gradient-to-br from-red-400 to-rose-500 rounded-full flex items-center justify-center mx-auto mb-3 shadow-sm">
+                  <span className="text-white font-bold text-sm">N</span>
                 </div>
                 <div className="text-3xl sm:text-4xl font-bold text-red-600 mb-2">{weatherData.nitrogen}</div>
                 <div className="text-red-700 font-semibold mb-1">Nitrogen (N)</div>
                 <div className="text-sm text-red-600 bg-red-100 px-2 py-1 rounded-full inline-block">ppm</div>
               </div>
             </Card>
-            <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200 hover:shadow-lg transition-all duration-300" padding="md">
+            <Card className="bg-gradient-to-br from-sky-50 via-blue-50 to-indigo-50 border-sky-200 hover:shadow-lg transition-all duration-300" padding="md">
               <div className="text-center">
-                <div className="w-12 h-12 bg-blue-200 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <span className="text-blue-600 font-bold text-sm">P</span>
+                <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-full flex items-center justify-center mx-auto mb-3 shadow-sm">
+                  <span className="text-white font-bold text-sm">P</span>
                 </div>
                 <div className="text-3xl sm:text-4xl font-bold text-blue-600 mb-2">{weatherData.phosphorus}</div>
                 <div className="text-blue-700 font-semibold mb-1">Fosfor (P)</div>
                 <div className="text-sm text-blue-600 bg-blue-100 px-2 py-1 rounded-full inline-block">ppm</div>
               </div>
             </Card>
-            <Card className="bg-gradient-to-br from-cyan-50 to-cyan-100 border-cyan-200 hover:shadow-lg transition-all duration-300 sm:col-span-2 md:col-span-1" padding="md">
+            <Card className="bg-gradient-to-br from-teal-50 via-cyan-50 to-emerald-50 border-teal-200 hover:shadow-lg transition-all duration-300 sm:col-span-2 md:col-span-1" padding="md">
               <div className="text-center">
-                <div className="w-12 h-12 bg-cyan-200 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <span className="text-cyan-600 font-bold text-sm">K</span>
+                <div className="w-12 h-12 bg-gradient-to-br from-teal-400 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-3 shadow-sm">
+                  <span className="text-white font-bold text-sm">K</span>
                 </div>
-                <div className="text-3xl sm:text-4xl font-bold text-cyan-600 mb-2">{weatherData.potassium}</div>
-                <div className="text-cyan-700 font-semibold mb-1">Kalium (K)</div>
-                <div className="text-sm text-cyan-600 bg-cyan-100 px-2 py-1 rounded-full inline-block">ppm</div>
+                <div className="text-3xl sm:text-4xl font-bold text-teal-600 mb-2">{weatherData.potassium}</div>
+                <div className="text-teal-700 font-semibold mb-1">Kalium (K)</div>
+                <div className="text-sm text-teal-600 bg-teal-100 px-2 py-1 rounded-full inline-block">ppm</div>
               </div>
             </Card>
           </div>
