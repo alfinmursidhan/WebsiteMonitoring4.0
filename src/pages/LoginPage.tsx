@@ -9,27 +9,26 @@ const LoginPage: React.FC = () => {
     email: '',
     password: '',
   });
-  const [error, setError] = useState('');
+  const [localError, setLocalError] = useState('');
   const navigate = useNavigate();
-  const { login, isLoading } = useAuth();
+  const { login, isLoading, error: authError } = useAuth();
 
   const handleInputChange = (field: string) => (value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
-    setError(''); // Clear error when user types
+    setLocalError(''); // Clear local error when user types
   };
 
   const handleLogin = async () => {
     if (!formData.email || !formData.password) {
-      setError('Harap isi semua field');
+      setLocalError('Harap isi semua field');
       return;
     }
 
     const success = await login(formData.email, formData.password);
     if (success) {
       navigate('/dashboard');
-    } else {
-      setError('Email atau password salah');
     }
+    // Error handling is now managed by AuthContext
   };
 
   return (
@@ -56,7 +55,7 @@ const LoginPage: React.FC = () => {
                 value={formData.email}
                 onChange={handleInputChange('email')}
                 icon={Mail}
-                error={error && !formData.email ? 'Email wajib diisi' : ''}
+                error={localError && !formData.email ? 'Email wajib diisi' : ''}
               />
 
               <Input
@@ -66,12 +65,12 @@ const LoginPage: React.FC = () => {
                 value={formData.password}
                 onChange={handleInputChange('password')}
                 icon={Lock}
-                error={error && !formData.password ? 'Password wajib diisi' : ''}
+                error={localError && !formData.password ? 'Password wajib diisi' : ''}
               />
 
-              {error && (
+              {(localError || authError) && (
                 <div className="bg-red-50 border border-red-200 text-red-600 text-sm text-center py-2 px-3 rounded-lg">
-                  {error}
+                  {localError || authError}
                 </div>
               )}
 
