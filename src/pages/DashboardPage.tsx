@@ -1,9 +1,46 @@
-import React from 'react';
-import { Sidebar, Card } from '../components';
+import { useState } from 'react';
+import { Sidebar, Card, SoilTemperatureCard, TemperatureChartCard } from '../components';
 import { useAuth } from '../hooks/useAuth';
+import { useSoilTemperatureHistory } from '../hooks/useSoilTemperature';
 
-const DashboardPage: React.FC = () => {
+const DashboardPage = () => {
   const { user } = useAuth();
+
+  // Fetch historical temperature data untuk chart (24 jam terakhir)
+  const [dateRange] = useState({
+    startDate: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
+    endDate: new Date().toISOString(),
+  });
+
+  const { data: historyData, loading: historyLoading, error: historyError } = useSoilTemperatureHistory(
+    dateRange.startDate, 
+    dateRange.endDate
+  );
+
+  // Debug log
+  console.log('📊 Dashboard - History Data:', historyData);
+  console.log('📊 Dashboard - Data length:', historyData?.length);
+  console.log('⏳ Dashboard - Loading:', historyLoading);
+  console.log('❌ Dashboard - Error:', historyError);
+
+  // Gunakan data historical jika ada, jika tidak gunakan mock data untuk demo
+  const generateMockData = () => {
+    const now = new Date();
+    const mockData = [];
+    for (let i = 24; i >= 0; i--) {
+      const timestamp = new Date(now.getTime() - i * 60 * 60 * 1000);
+      mockData.push({
+        id: `mock-${i}`,
+        temperature: 20 + Math.random() * 10,
+        timestamp: timestamp.toISOString(),
+        location: 'Sensor-01',
+        sensorId: 'MOCK-SENSOR'
+      });
+    }
+    return mockData;
+  };
+
+  const chartData = (historyData && historyData.length > 0) ? historyData : generateMockData();
 
   // Mock data for monitoring
   const weatherData = {
@@ -102,6 +139,28 @@ const DashboardPage: React.FC = () => {
               </Card>
             </div>
           </div>
+
+          {/* Temperature Card - Real-time Data */}
+          <div className="mb-6 sm:mb-8">
+            <SoilTemperatureCard />
+          </div>
+
+          {/* Temperature Chart - Historical Data */}
+          {!historyLoading && chartData && chartData.length > 0 ? (
+            <div className="mb-6 sm:mb-8">
+              <TemperatureChartCard 
+                data={chartData} 
+                title="📈 Grafik Temperature 24 Jam Terakhir"
+              />
+            </div>
+          ) : historyLoading ? (
+            <Card className="mb-6 sm:mb-8">
+              <div className="text-center py-8">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
+                <p className="mt-4 text-gray-600">Memuat data chart...</p>
+              </div>
+            </Card>
+          ) : null}
 
           {/* Nutrient Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">

@@ -49,3 +49,19 @@ export interface ApiResponse<T> {
   error?: string;
   timestamp: string;
 }
+
+// Types for real-time soil temperature data
+export interface SoilTemperatureData {
+  id?: string;
+  temperature: number;
+  timestamp: string;
+  location?: string;
+  sensorId?: string;
+}
+
+export interface SoilTemperatureResponse {
+  success: boolean;
+  data?: SoilTemperatureData[];
+  error?: string;
+  message?: string;
+}

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Temperature API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .info {
+            background: #d1ecf1;
+            color: #0c5460;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌡️ Test Temperature API</h1>
+        
+        <div class="info">
+            <h3>API Configuration:</h3>
+            <p><strong>URL:</strong> <span id="api-url"></span></p>
+            <p><strong>API Key:</strong> <span id="api-key"></span></p>
+        </div>
+
+        <h3>Test dengan berbagai format header:</h3>
+        <button onclick="testAPI('X-API-Key')">Test dengan X-API-Key</button>
+        <button onclick="testAPI('x-api-key')">Test dengan x-api-key</button>
+        <button onclick="testAPI('Authorization')">Test dengan Authorization Bearer</button>
+        <button onclick="testAPI('Api-Key')">Test dengan Api-Key</button>
+        <button onclick="testAPI('apikey')">Test dengan apikey</button>
+        <button onclick="testAPI('none')">Test tanpa API Key</button>
+
+        <div id="result" class="result">Klik salah satu tombol untuk test API...</div>
+    </div>
+
+    <script>
+        const API_URL = 'https://api-sensor-tanah.whiteforest-7d22ee8f.southeastasia.azurecontainerapps.io/api/temperatures';
+        const API_KEY = 'jashuI&WEUEHCznxnnskawo8e8TYYgbhsafbjgovoosdfrAngga';
+
+        document.getElementById('api-url').textContent = API_URL;
+        document.getElementById('api-key').textContent = API_KEY;
+
+        async function testAPI(headerType) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.className = 'result';
+            resultDiv.textContent = `Testing dengan header type: ${headerType}...\n\n`;
+
+            try {
+                const headers = {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                };
+
+                // Tambahkan API key sesuai format yang dipilih
+                switch(headerType) {
+                    case 'X-API-Key':
+                        headers['X-API-Key'] = API_KEY;
+                        break;
+                    case 'x-api-key':
+                        headers['x-api-key'] = API_KEY;
+                        break;
+                    case 'Authorization':
+                        headers['Authorization'] = `Bearer ${API_KEY}`;
+                        break;
+                    case 'Api-Key':
+                        headers['Api-Key'] = API_KEY;
+                        break;
+                    case 'apikey':
+                        headers['apikey'] = API_KEY;
+                        break;
+                    case 'none':
+                        // Tidak menambahkan API key
+                        break;
+                }
+
+                resultDiv.textContent += `Request Headers:\n${JSON.stringify(headers, null, 2)}\n\n`;
+                resultDiv.textContent += 'Mengirim request...\n\n';
+
+                const response = await fetch(API_URL, {
+                    method: 'GET',
+                    headers: headers,
+                    mode: 'cors',
+                });
+
+                resultDiv.textContent += `Response Status: ${response.status} ${response.statusText}\n\n`;
+                
+                const responseHeaders = {};
+                response.headers.forEach((value, key) => {
+                    responseHeaders[key] = value;
+                });
+                resultDiv.textContent += `Response Headers:\n${JSON.stringify(responseHeaders, null, 2)}\n\n`;
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    resultDiv.className = 'result error';
+                    resultDiv.textContent += `Error Response Body:\n${errorText}`;
+                    return;
+                }
+
+                const data = await response.json();
+                resultDiv.className = 'result success';
+                resultDiv.textContent += `✅ SUCCESS!\n\nResponse Data:\n${JSON.stringify(data, null, 2)}`;
+
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent += `❌ Error: ${error.message}\n\n`;
+                resultDiv.textContent += `Full error:\n${JSON.stringify(error, null, 2)}`;
+            }
+        }
+    </script>
+</body>
+</html>
