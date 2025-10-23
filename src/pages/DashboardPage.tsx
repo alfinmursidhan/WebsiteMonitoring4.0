@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Sidebar, Card, SoilTemperatureCard, TemperatureChartCard } from '../components';
+import { Sidebar, Card, SoilTemperatureCard, TemperatureChartCard, ElectricalDataCard } from '../components';
 import { useAuth } from '../hooks/useAuth';
 import { useSoilTemperatureHistory } from '../hooks/useSoilTemperature';
 
@@ -140,9 +140,13 @@ const DashboardPage = () => {
             </div>
           </div>
 
-          {/* Temperature Card - Real-time Data */}
-          <div className="mb-6 sm:mb-8">
+          {/* Monitoring Cards */}
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-6 sm:mb-8">
+            {/* Temperature Card - Real-time Data */}
             <SoilTemperatureCard />
+            
+            {/* Electrical Card - Real-time Data */}
+            <ElectricalDataCard />
           </div>
 
           {/* Temperature Chart - Historical Data */}

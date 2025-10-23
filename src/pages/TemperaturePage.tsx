@@ -147,7 +147,7 @@ const TemperaturePage = () => {
                   {data && data.length > 0 && (
                     <div className="mt-6 text-sm opacity-80">
                       <p>Lokasi: {data[0].location || 'Sensor-01'}</p>
-                      <p>Update: {new Date(data[0].timestamp).toLocaleString('id-ID')}</p>
+                      <p>Update: {data[0].timestamp ? new Date(data[0].timestamp).toLocaleString('id-ID') : 'N/A'}</p>
                     </div>
                   )}
                 </div>
@@ -236,7 +236,7 @@ const TemperaturePage = () => {
                       return (
                         <tr key={reading.id || index} className="hover:bg-gray-50">
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                            {new Date(reading.timestamp).toLocaleString('id-ID')}
+                            {reading.timestamp ? new Date(reading.timestamp).toLocaleString('id-ID') : 'N/A'}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
                             <span className="text-lg font-semibold text-gray-900">

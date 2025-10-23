@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Bell, History, Home, User, LogOut, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Bell, History, Home, User, LogOut, ChevronLeft, ChevronRight, Thermometer, Zap } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 
@@ -11,6 +11,8 @@ const Sidebar: React.FC = () => {
 
   const navigationItems = [
     { path: '/dashboard', label: 'Dashboard', icon: Home },
+    { path: '/temperature', label: 'Temperature', icon: Thermometer },
+    { path: '/electrical', label: 'Electrical', icon: Zap },
     { path: '/history', label: 'History', icon: History },
     { path: '/profile', label: 'Profile', icon: User },
   ];

@@ -18,14 +18,14 @@ export const TemperatureChart = ({
   // Format data untuk chart
   const chartData = data.map((reading) => ({
     ...reading,
-    time: new Date(reading.timestamp).toLocaleTimeString('id-ID', {
+    time: reading.timestamp ? new Date(reading.timestamp).toLocaleTimeString('id-ID', {
       hour: '2-digit',
       minute: '2-digit',
-    }),
-    date: new Date(reading.timestamp).toLocaleDateString('id-ID', {
+    }) : '',
+    date: reading.timestamp ? new Date(reading.timestamp).toLocaleDateString('id-ID', {
       day: '2-digit',
       month: 'short',
-    }),
+    }) : '',
     temp: Number(reading.temperature.toFixed(1)),
   })).reverse(); // Reverse agar data terbaru di kanan
 

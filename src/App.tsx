@@ -14,6 +14,8 @@ import DashboardPage from './pages/DashboardPage';
 import NotificationsPage from './pages/NotificationsPage';
 import HistoryPage from './pages/HistoryPage';
 import ProfilePage from './pages/ProfilePage';
+import TemperaturePage from './pages/TemperaturePage';
+import ElectricalPage from './pages/ElectricalPage';
 
 // Protected Route Component
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -81,6 +83,16 @@ const AppRoutes: React.FC = () => {
       <Route path="/profile" element={
         <ProtectedRoute>
           <ProfilePage />
+        </ProtectedRoute>
+      } />
+      <Route path="/temperature" element={
+        <ProtectedRoute>
+          <TemperaturePage />
+        </ProtectedRoute>
+      } />
+      <Route path="/electrical" element={
+        <ProtectedRoute>
+          <ElectricalPage />
         </ProtectedRoute>
       } />
 

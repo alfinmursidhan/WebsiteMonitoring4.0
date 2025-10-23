@@ -53,7 +53,7 @@ export const TemperatureChartCard = ({
     const cutoffTime = new Date(now.getTime() - hours * 60 * 60 * 1000);
     
     return data.filter(reading => 
-      new Date(reading.timestamp) >= cutoffTime
+      reading.timestamp && new Date(reading.timestamp) >= cutoffTime
     );
   };
 
@@ -64,15 +64,15 @@ export const TemperatureChartCard = ({
     try {
       return {
         ...reading,
-        time: new Date(reading.timestamp).toLocaleTimeString('id-ID', {
+        time: reading.timestamp ? new Date(reading.timestamp).toLocaleTimeString('id-ID', {
           hour: '2-digit',
           minute: '2-digit',
-        }),
-        date: new Date(reading.timestamp).toLocaleDateString('id-ID', {
+        }) : '',
+        date: reading.timestamp ? new Date(reading.timestamp).toLocaleDateString('id-ID', {
           day: '2-digit',
           month: 'short',
-        }),
-        fullDate: new Date(reading.timestamp).toLocaleString('id-ID'),
+        }) : '',
+        fullDate: reading.timestamp ? new Date(reading.timestamp).toLocaleString('id-ID') : '',
         temp: Number(reading.temperature.toFixed(1)),
       };
     } catch (error) {

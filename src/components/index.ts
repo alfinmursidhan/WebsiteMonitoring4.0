@@ -7,3 +7,4 @@ export { default as Sidebar } from './Sidebar';
 export { SoilTemperatureCard } from './SoilTemperatureCard';
 export { TemperatureChart } from './TemperatureChart';
 export { TemperatureChartCard } from './TemperatureChartCard';
+export { default as ElectricalDataCard } from './ElectricalDataCard';
